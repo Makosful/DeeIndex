@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -66,7 +67,7 @@ namespace DeepIndex.Hoster.Crawler.Workers
 
                 foreach (var info in fileInfos)
                 {
-                    CrawlFile(info);
+                    //CrawlFile(info);
                 }
             });
 
@@ -83,7 +84,9 @@ namespace DeepIndex.Hoster.Crawler.Workers
         private IEnumerable<FileInfo> CrawlDirectory(DirectoryInfo dir)
         {
             _logger.LogInformation("Looking in {Directory}", dir);
-            
+
+            Stopwatch s = new Stopwatch();
+            s.Start();
             // The 'yield' keyword automatically adds the results to an
             // anonymous IEnumerable that will be returned once the
             // methods hits it's exit point
@@ -91,6 +94,9 @@ namespace DeepIndex.Hoster.Crawler.Workers
 
             foreach (var directory in dir.EnumerateDirectories())
             foreach (var file in CrawlDirectory(directory)) yield return file;
+            
+            s.Stop();
+            Console.WriteLine($"{s.Elapsed}");
         }
 
         /// <summary>
