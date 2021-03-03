@@ -4,7 +4,6 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <UserSecretsId>a0ba00e6-2dd4-4c42-b003-6291310890bc</UserSecretsId>
-        <RootNamespace>DeepIndex.Host.Indexer</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

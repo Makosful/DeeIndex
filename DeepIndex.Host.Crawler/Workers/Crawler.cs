@@ -8,7 +8,7 @@ using DeepIndex.Core.ApplicationServices.Abstractions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace DeepIndex.Host.Indexer.Workers
+namespace DeepIndex.Host.Crawler.Workers
 {
     public class Crawler : BackgroundService
     {
