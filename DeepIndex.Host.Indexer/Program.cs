@@ -1,16 +1,13 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
-using DeepIndex.Ui.Indexer.Workers;
+﻿using System.Threading.Tasks;
 using DeepIndex.Core;
-using DeepIndex.Core.ApplicationServices.Abstractions;
+using DeepIndex.Host.Indexer.Workers;
 using DeepIndex.Infrastructure.Sqlite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace DeepIndex.Ui.Indexer
+namespace DeepIndex.Host.Indexer
 {
     internal static class Program
     {
@@ -33,7 +30,7 @@ namespace DeepIndex.Ui.Indexer
         /// <returns></returns>
         private static IHostBuilder CreateHostBuilder(string[] args)
         {
-            IHostBuilder host = Host.CreateDefaultBuilder(args);
+            IHostBuilder host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args);
 
             host.ConfigureServices(ConfigureWorkers);
             host.UseSerilog();

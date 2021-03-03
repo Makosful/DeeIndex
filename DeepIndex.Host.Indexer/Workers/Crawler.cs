@@ -8,11 +8,11 @@ using DeepIndex.Core.ApplicationServices.Abstractions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace DeepIndex.Ui.Indexer.Workers
+namespace DeepIndex.Host.Indexer.Workers
 {
     public class Crawler : BackgroundService
     {
-        private const string SearchDirectory = @"/home/axl/repository/dls/DeepIndex/data/avaya";
+        private const string SearchDirectory = @"/home/axl/repository/dls/DeepIndex/data";
         
         private readonly ILogger<Crawler> _logger;
         private readonly IOccurrenceService _occurrenceService;

@@ -4,11 +4,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Core", "DeepIndex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Core.Entities", "DeepIndex.Core.Entities\DeepIndex.Core.Entities.csproj", "{CE1D718C-A335-4C50-855D-FB2B03BA400B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Ui.Indexer", "DeepIndex.Ui.Indexer\DeepIndex.Ui.Indexer.csproj", "{89587D60-F355-4BCA-A8E1-8B46F12B8DB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Host.Indexer", "DeepIndex.Host.Indexer\DeepIndex.Host.Indexer.csproj", "{89587D60-F355-4BCA-A8E1-8B46F12B8DB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Infrastructure.Sqlite", "DeepIndex.Infrastructure.Sqlite\DeepIndex.Infrastructure.Sqlite.csproj", "{3D51BB34-5ED2-407B-BA37-90707C2B2430}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Ui.Cli", "DeepIndex.Ui.Cli\DeepIndex.Ui.Cli.csproj", "{1507BFC4-3252-4172-8FAA-C2904A3EC544}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{054922C2-32BD-47A0-9C37-B93F1800BAA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{BFDC1AB1-5B4A-4172-98F7-C2DBBAF3206A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ui", "Ui", "{C2D56D07-50FF-4388-BE81-50B1CC219F12}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{1EE1B88C-9BB1-4D1E-A945-E4EC46BB7875}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +44,12 @@ Global
 		{1507BFC4-3252-4172-8FAA-C2904A3EC544}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1507BFC4-3252-4172-8FAA-C2904A3EC544}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1507BFC4-3252-4172-8FAA-C2904A3EC544}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3CD1F329-6B83-4DEF-9DB9-9E487ED37F66} = {054922C2-32BD-47A0-9C37-B93F1800BAA5}
+		{CE1D718C-A335-4C50-855D-FB2B03BA400B} = {054922C2-32BD-47A0-9C37-B93F1800BAA5}
+		{3D51BB34-5ED2-407B-BA37-90707C2B2430} = {BFDC1AB1-5B4A-4172-98F7-C2DBBAF3206A}
+		{1507BFC4-3252-4172-8FAA-C2904A3EC544} = {C2D56D07-50FF-4388-BE81-50B1CC219F12}
+		{89587D60-F355-4BCA-A8E1-8B46F12B8DB0} = {1EE1B88C-9BB1-4D1E-A945-E4EC46BB7875}
 	EndGlobalSection
 EndGlobal
