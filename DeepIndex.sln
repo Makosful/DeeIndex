@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Core", "DeepIndex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Core.Entities", "DeepIndex.Core.Entities\DeepIndex.Core.Entities.csproj", "{CE1D718C-A335-4C50-855D-FB2B03BA400B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Host.Crawler", "DeepIndex.Host.Crawler\DeepIndex.Host.Crawler.csproj", "{89587D60-F355-4BCA-A8E1-8B46F12B8DB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Hoster.Crawler", "DeepIndex.Hoster.Crawler\DeepIndex.Hoster.Crawler.csproj", "{89587D60-F355-4BCA-A8E1-8B46F12B8DB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepIndex.Infrastructure.Sqlite", "DeepIndex.Infrastructure.Sqlite\DeepIndex.Infrastructure.Sqlite.csproj", "{3D51BB34-5ED2-407B-BA37-90707C2B2430}"
 EndProject

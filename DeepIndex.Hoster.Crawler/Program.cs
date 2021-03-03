@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
 using DeepIndex.Core;
-using DeepIndex.Host.Crawler.Workers;
 using DeepIndex.Infrastructure.Sqlite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace DeepIndex.Host.Crawler
+namespace DeepIndex.Hoster.Crawler
 {
     internal static class Program
     {
@@ -50,7 +49,7 @@ namespace DeepIndex.Host.Crawler
             Log.Logger = ConfigureLogger(context.Configuration);
             services.AddLogging(x => x.AddSerilog());
 
-            services.AddHostedService<Workers.Crawler>();
+            services.AddHostedService<Hoster.Crawler.Workers.Crawler>();
             services.AddCoreDependencies();
             services.AddSqliteDependencies();
         }
