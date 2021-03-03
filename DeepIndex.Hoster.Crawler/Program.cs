@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using DeepIndex.Core;
-using DeepIndex.Infrastructure.Sqlite;
-using Microsoft.Extensions.Configuration;
+using DeepIndex.Hoster.Crawler.Data;
+using DeepIndex.Hoster.Crawler.Data.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -29,7 +28,7 @@ namespace DeepIndex.Hoster.Crawler
         /// <returns></returns>
         private static IHostBuilder CreateHostBuilder(string[] args)
         {
-            IHostBuilder host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args);
+            IHostBuilder host = Host.CreateDefaultBuilder(args);
 
             host.ConfigureServices(ConfigureWorkers);
             host.UseSerilog();
@@ -45,25 +44,11 @@ namespace DeepIndex.Hoster.Crawler
         /// <param name="services"></param>
         private static void ConfigureWorkers(HostBuilderContext context, IServiceCollection services)
         {
-            // Logging
-            Log.Logger = ConfigureLogger(context.Configuration);
-            services.AddLogging(x => x.AddSerilog());
-
+            // Sets up the background worker
             services.AddHostedService<Hoster.Crawler.Workers.Crawler>();
-            services.AddCoreDependencies();
-            services.AddSqliteDependencies();
-        }
-
-        /// <summary>
-        /// Configures Serilog
-        /// </summary>
-        /// <param name="configuration"></param>
-        /// <returns></returns>
-        private static ILogger ConfigureLogger(IConfiguration configuration)
-        {
-            return new LoggerConfiguration()
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
+            
+            // Sets up the dependencies an
+            services.AddScoped<IRestAccess, RestAccess>();
         }
     }
 }
