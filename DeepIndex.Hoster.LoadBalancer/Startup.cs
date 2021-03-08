@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DeepIndex.Hoster.LoadBalancer.Data;
+using DeepIndex.Hoster.LoadBalancer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace DeepIndex.Hoster.LoadBalancer
 {
@@ -26,25 +22,36 @@ namespace DeepIndex.Hoster.LoadBalancer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<LoadBalancerApiContext>(options => options.UseInMemoryDatabase("JobsDb"));
+            
+            services.AddScoped<IRepository<Job>, LoadBalanceRepository>();
+            
+            services.AddTransient<IDbInitializer, DbInitializer>();
+
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "DeepIndex.Hoster.LoadBalancer", Version = "v1"});
-            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                // Initialize the database
+                var services = scope.ServiceProvider;
+                var dbContext = services.GetService<LoadBalancerApiContext>();
+                var dbInitializer = services.GetService<IDbInitializer>();
+                dbInitializer.Initialize(dbContext);
+            }
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "DeepIndex.Hoster.LoadBalancer v1"));
+                //app.UseSwagger();
+               // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DeepIndex.Hoster.LoadBalancer v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
