@@ -1,13 +1,11 @@
 using DeepIndex.Hoster.LoadBalancer.Data;
-using DeepIndex.Hoster.LoadBalancer.Logic;
-using DeepIndex.Hoster.LoadBalancer.Logic.Abstractions;
-using DeepIndex.Hoster.LoadBalancer.Models;
+using DeepIndex.Hoster.LoadBalancer.Data.Abstractions;
+using DeepIndex.Hoster.LoadBalancer.Workers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace DeepIndex.Hoster.LoadBalancer
@@ -24,16 +22,10 @@ namespace DeepIndex.Hoster.LoadBalancer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<LoadBalancerApiContext>(options => options.UseInMemoryDatabase("JobsDb"));
-            
-            services.AddScoped<IRepository<Job>, LoadBalanceRepository>();
-            services.AddScoped<IDeligator, Delegator>();
-
-            
-            services.AddTransient<IDbInitializer, DbInitializer>();
+            services.AddHostedService<Distributor>();
+            services.AddSingleton<ILoadBalancerRepository, LoadBalanceRepository>();
 
             services.AddControllers();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,11 +33,6 @@ namespace DeepIndex.Hoster.LoadBalancer
         {
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                // Initialize the database
-                var services = scope.ServiceProvider;
-                var dbContext = services.GetService<LoadBalancerApiContext>();
-                var dbInitializer = services.GetService<IDbInitializer>();
-                dbInitializer.Initialize(dbContext);
             }
             
             if (env.IsDevelopment())

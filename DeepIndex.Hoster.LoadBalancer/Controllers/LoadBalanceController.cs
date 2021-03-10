@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using DeepIndex.Hoster.LoadBalancer.Data;
-using DeepIndex.Hoster.LoadBalancer.Models;
+﻿using DeepIndex.Hoster.LoadBalancer.Data.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using RestSharp;
 
 namespace DeepIndex.Hoster.LoadBalancer.Controllers
 {
@@ -11,38 +7,27 @@ namespace DeepIndex.Hoster.LoadBalancer.Controllers
     [Route("[controller]")]
     public class LoadBalanceController : ControllerBase
     {
-        private readonly IRepository<Job> _repository;
+        private readonly ILoadBalancerRepository _repository;
 
-        public LoadBalanceController(IRepository<Job> repository)
+        public LoadBalanceController(ILoadBalancerRepository repository)
         {
             _repository = repository;
         }
-        
-        [HttpGet]
-        public IActionResult Get()
-        {
-            var job = _repository.Get();
-            if (job == null)
-            {
-                return NotFound();
-            }
-            _repository.Remove(job.Id);
 
-            return new ObjectResult(job);
-        }
-        
-        [HttpPost( Name = "GetJob")]
-        public IActionResult Post([FromBody]Job job)
+        [HttpPost]
+        public IActionResult Post([FromBody]string[] paths)
         {
-            if (job == null)
+            if (paths == null || paths.Length < 1)
             {
                 return BadRequest();
             }
 
-           
-            var newJob = _repository.Add(job);
-            return CreatedAtRoute("GetJob", new { id = newJob.Id,path = newJob.Path }, newJob);
-        
+            foreach (var path in paths)
+            {
+                _repository.QueueUp(path);
+            }
+            
+            return Ok();
         }
     }
 }
