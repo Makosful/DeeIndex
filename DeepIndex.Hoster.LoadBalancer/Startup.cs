@@ -1,4 +1,6 @@
 using DeepIndex.Hoster.LoadBalancer.Data;
+using DeepIndex.Hoster.LoadBalancer.Logic;
+using DeepIndex.Hoster.LoadBalancer.Logic.Abstractions;
 using DeepIndex.Hoster.LoadBalancer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +27,8 @@ namespace DeepIndex.Hoster.LoadBalancer
             services.AddDbContext<LoadBalancerApiContext>(options => options.UseInMemoryDatabase("JobsDb"));
             
             services.AddScoped<IRepository<Job>, LoadBalanceRepository>();
+            services.AddScoped<IDeligator, Delegator>();
+
             
             services.AddTransient<IDbInitializer, DbInitializer>();
 

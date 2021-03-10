@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DeepIndex.Hoster.LoadBalancer.Data;
 using DeepIndex.Hoster.LoadBalancer.Models;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 
 namespace DeepIndex.Hoster.LoadBalancer.Controllers
 {
